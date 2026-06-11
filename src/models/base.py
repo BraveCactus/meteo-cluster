@@ -24,7 +24,7 @@ class BaseClusterer(ABC):
         """Обучает модель на данных X"""
 
         self.model = self._create_model(**kwargs)        
-        self.labels_ = self.fit_predict(X)
+        self.labels_ = self.model.fit_predict(X)
         self.is_fitted = True
         return self
     
