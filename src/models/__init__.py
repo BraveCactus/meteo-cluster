@@ -1,4 +1,5 @@
-from .base import BaseClusterer, KMeansClusterer
+from .base import BaseClusterer
+from .kmeans import KMeansClusterer
 
 __all__ = [
     'BaseClusterer',

@@ -1,3 +1,5 @@
+from matplotlib import pyplot as plt
+import numpy as np
 from sklearn.cluster import KMeans
 from typing import Dict, Any, Literal
 from pathlib import Path
@@ -57,4 +59,25 @@ class KMeansClusterer(BaseClusterer):
             "algorithm": self.algorithm,
             "random_state": self.random_state
         }
+    
+    def elbow_method(self, X: np.ndarray, max_k: int = 10) -> Dict[int, float]:
+        """Метод локтя для определения оптимального количества кластеров"""
+        inertia = {}
+        for k in range(1, max_k + 1):
+            model = KMeans(n_clusters=k, random_state=self.random_state)
+            model.fit(X)
+            inertia[k] = model.inertia_
+
+        plt.plot(list(inertia.keys()), list(inertia.values()), marker="o")
+        plt.xlabel('Количество кластеров')
+        plt.ylabel('Инерция')
+
+        return inertia
+    
+    def update_params(self, **kwargs) -> None:
+        """Обновляет параметры модели KMeans"""
+        for key, value in kwargs.items():
+            if hasattr(self, key):
+                setattr(self, key, value)
+        self.model = self._create_model(**self.get_params())
     
