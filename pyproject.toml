@@ -1,0 +1,44 @@
+[project]
+name = "meteo-cluster"
+version = "0.1.0"
+description = "meteo-cluster project"
+readme = "README.md"
+requires-python = ">=3.11"
+
+dependencies = [    
+    "ipykernel>=6.29.5",
+    "matplotlib>=3.10.8",
+    "numpy>=2.4.3",
+    "pandas>=3.0.1",
+    "scikit-learn>=1.9.0",
+    "seaborn>=0.13.2",
+    "sklearn-xarray>=0.4.0",
+    "xarray>=2026.4.0",
+]
+
+[dependency-groups]
+# Секция библиотек для разработчика
+dev = [
+    "mypy>=1.19.1",
+    "pytest>=7.0.0",
+    "ruff>=0.1.0",
+]
+
+[tool.ruff]
+# Максимальная длина строки (стандарт Black)
+line-length = 88
+
+# Какие правила проверять
+select = [
+    "E",   # Ошибки стиля (pycodestyle)
+    "W",   # Предупреждения стиля (pycodestyle)
+    "F",   # Логические ошибки (pyflakes)
+    "I",   # Порядок импортов (isort)
+    "UP",  # Современный синтаксис (pyupgrade)
+]
+
+exclude = [
+    ".git",
+    ".venv",
+    "__pycache__",
+]
