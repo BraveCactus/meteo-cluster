@@ -6,13 +6,13 @@ def stratified_sample_by_cluster(X: np.ndarray, labels: np.ndarray, sample_size:
     """
     Выполняет стратифицированную выборку по кластерам.
 
-    args:
+    params:
         X: Данные для кластеризации
         labels: Предсказанные кластеры
         sample_size: Размер выборки
 
     returns:
-        Tuple: Кортеж из sampled data и sampled labels
+        X_sampled, labels_sampled: Выборка данных и соответствующих меток кластеров
     """
     if sample_size is None:
         return X, labels
@@ -37,14 +37,14 @@ def stratified_sample_by_cluster(X: np.ndarray, labels: np.ndarray, sample_size:
 
 def calculate_metrics(X: np.ndarray, labels: np.ndarray) -> Dict[str, float]:
     """
-    Расчет метрик качества кластеризации
+    Расчет метрик качества кластеризации.
 
-    args:
+    params:
         X: Данные для кластеризации
         labels: Предсказанные кластеры
 
     returns:
-        Dict[str, float]: Словарь с метриками качества кластеризации
+        metrics: Словарь с метриками качества кластеризации
     """
     metrics = {
         "silhouette_score": silhouette_score(X, labels),

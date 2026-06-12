@@ -9,9 +9,11 @@ from sklearn.preprocessing import StandardScaler
 def load_data(file_path: Path, pressure_level: int) -> xr.Dataset:
     """"
     Загружает данные из NetCDF файла и фильтрует по заданному уровню давления.
-    args:
+
+    params:
         file_path: Путь к NetCDF файлу
         pressure_level: Уровень давления для фильтрации данных
+
     returns:
         nc_data: данные отфильтрованные по уровню давлению
     """
@@ -32,6 +34,7 @@ def dataset_to_dataframe(ds: xr.Dataset, features: list) -> pd.DataFrame:
     params:
         ds: Dataset с координатами time, lon, lat и переменными признаков
         features: Список имен переменных признаков для включения в DataFrame
+
     return:
         df: DataFrame с MultiIndex (time, lon, lat) и столбцами признаков
     """
@@ -43,11 +46,11 @@ def normalize_dataframe(ds: xr.Dataset, features: list) -> pd.DataFrame:
     Нормализует указанные признаки в DataFrame
     
     params:
-        df: DataFrame с MultiIndex (time, lon, lat) и столбцами признаков
+        ds: Dataset с координатами time, lon, lat и переменными признаков
         features: Список имен переменных признаков для нормализации
     return:
-        df_scaled: DataFrame с нормализованными признаками
-        scaler_params: Словарь с параметрами нормализации (mean, scale) для каждого признака
+        norm_df: DataFrame с нормализованными признаками
+        
     """
 
     mean= ds.mean(dim='time')
