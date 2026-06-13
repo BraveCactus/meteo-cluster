@@ -34,6 +34,24 @@ def stratified_sample_by_cluster(X: np.ndarray, labels: np.ndarray, sample_size:
 
     return X_sampled, labels_sampled
 
+def random_sample(X: np.ndarray, n_samples: int) -> np.ndarray:
+    """
+    Возвращает случайную подвыборку без замены из массива.
+    
+    params:
+        X: Входной массив
+        n_samples: Количество элементов в выборке
+    
+    returns:
+        X_sample: Случайная подвыборка
+    """
+    if n_samples > len(X):
+        raise ValueError(f"Величина подвыборки ({n_samples}) не может быть больше размера массива ({len(X)})")
+    
+    indices = np.random.choice(len(X), n_samples, replace=False)
+    X_sample = X[indices]
+    return X_sample
+
 
 def calculate_metrics(X: np.ndarray, labels: np.ndarray) -> Dict[str, float]:
     """
@@ -52,3 +70,21 @@ def calculate_metrics(X: np.ndarray, labels: np.ndarray) -> Dict[str, float]:
         "davies_bouldin_score": davies_bouldin_score(X, labels)
     }
     return metrics
+
+def silhouette_scoring(estimator, X):
+    labels = estimator.predict(X)
+    if len(np.unique(labels)) < 2:
+        return -1
+    return silhouette_score(X, labels)
+
+def calinski_harabasz_scoring(estimator, X):
+    labels = estimator.predict(X)
+    if len(np.unique(labels)) < 2:
+        return -1
+    return calinski_harabasz_score(X, labels)
+
+def davies_bouldin_scoring(estimator, X):
+    labels = estimator.predict(X)
+    if len(np.unique(labels)) < 2:
+        return -1
+    return davies_bouldin_score(X, labels)
