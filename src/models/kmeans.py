@@ -47,19 +47,6 @@ class KMeansClusterer(BaseClusterer):
                       random_state=self.random_state, 
                       algorithm=self.algorithm)
     
-    def get_params(self) -> Dict[str, Any]:
-        """Возвращает параметры модели KMeans"""
-        return {
-            "n_clusters": self.n_clusters,
-            "init": self.init,
-            "n_init": self.n_init,
-            "max_iter": self.max_iter,
-            "tol": self.tol,
-            "verbose": self.verbose,
-            "algorithm": self.algorithm,
-            "random_state": self.random_state
-        }
-    
     def elbow_method(self, X: np.ndarray, max_k: int = 10) -> Dict[int, float]:
         """Метод локтя для определения оптимального количества кластеров"""
         inertia = {}

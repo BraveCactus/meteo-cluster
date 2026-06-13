@@ -1,11 +1,12 @@
 from abc import ABC, abstractmethod
+from sklearn.base import BaseEstimator, ClusterMixin
 import numpy as np
 import pandas as pd
 from pathlib import Path
 import joblib
 from typing import Any, Dict, Optional
 
-class BaseClusterer(ABC):
+class BaseClusterer(ABC, BaseEstimator, ClusterMixin):
     """Базовыйй класс для всех кластеризаторов"""
 
     def __init__(self, name: str, random_state: int = 42):
@@ -26,7 +27,7 @@ class BaseClusterer(ABC):
         self.model = self._create_model(**kwargs)        
         self.labels_ = self.model.fit_predict(X)
         self.is_fitted = True
-        return self
+        return self    
     
     def predict(self, X: np.ndarray) -> np.ndarray:
         """Предсказывает кластеры для данных X"""
@@ -54,10 +55,6 @@ class BaseClusterer(ABC):
         self.model = joblib.load(file_path)
         self.is_fitted = True
 
-    @abstractmethod
-    def get_params(self) -> Dict[str, Any]:
-        """Возвращает параметры модели"""
-        pass
 
         
     
