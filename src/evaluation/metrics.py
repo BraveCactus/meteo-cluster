@@ -72,7 +72,13 @@ def calculate_metrics(X: np.ndarray, labels: np.ndarray) -> Dict[str, float]:
     return metrics
 
 def silhouette_scoring(estimator, X):
-    labels = estimator.predict(X)
+    if hasattr(estimator, 'fit_predict'):
+        labels = estimator.fit_predict(X)
+    elif hasattr(estimator, 'predict'):
+        labels = estimator.predict(X)
+    else:
+        raise ValueError(f"Estimator {type(estimator)} has neither predict nor fit_predict")
+
     if len(np.unique(labels)) < 2:
         return -1
     return silhouette_score(X, labels)
