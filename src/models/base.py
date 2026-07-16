@@ -47,13 +47,13 @@ class BaseClusterer(ABC, BaseEstimator, ClusterMixin):
 
         joblib.dump(self.model, file_path)
 
-    def load(self, file_path: Path) -> None:
+    @classmethod
+    def load(cls, file_path: Path) -> 'BaseClusterer':
         """Загружает модель"""
-
+        file_path = Path(file_path)
         if not file_path.exists():
-            raise ValueError("File does not exist.")
-        self.model = joblib.load(file_path)
-        self.is_fitted = True
+            raise FileNotFoundError(f"File does not exist: {file_path}")
+        return joblib.load(file_path)
 
 
         
