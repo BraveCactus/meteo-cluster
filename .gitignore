@@ -172,4 +172,4 @@ test.ipynb
 
 # developer-specific folders for these project
 output/
-models/
+models-storage/
