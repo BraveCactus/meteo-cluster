@@ -164,6 +164,7 @@ cython_debug/
 # developer-specific files for these project
 *.lock
 *.nc
+*.pkl
 
 TODO.md
 dev.ipynb
@@ -171,4 +172,4 @@ test.ipynb
 
 # developer-specific folders for these project
 output/
-cluster-models/
+models/
